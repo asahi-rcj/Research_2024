@@ -17,21 +17,21 @@ NAP_LIMIT = 500
 ITEM_COUNT = 10
 
 # 各世代の個体
-EACH_LEVEL_COUNT = 1000
+EACH_LEVEL_COUNT = 100
 
 # 次世代生成数
-GENERATION_TIME = 1000
+GENERATION_TIME = 9000
 
 # 交配レート
-CROSS_RATING = 95
-MUTANT_RATING = 10
+CROSS_RATING = 98
+MUTANT_RATING = 5
 
 #value, weight
 item = []
 
 def init_each_param_from_text():
     dirname = os.path.dirname(__file__)
-    f = open(os.path.join(dirname, "question.txt"), 'r', encoding='UTF-8')
+    f = open(os.path.join(dirname, "question_2.txt"), 'r', encoding='UTF-8')
     data_list = f.readlines()
 
     global ITEM_COUNT
@@ -84,20 +84,14 @@ def main():
         elite_index = [0, 0]
         elite_E = [[0] * ITEM_COUNT, [0] * ITEM_COUNT]
 
+
         for j in range(2):
             elite_index[j] = nap_value.index(elite_value[j])
             elite_E[j] = E[elite_index[j]]
 
-        if i == 999:
-            print("エリート個体：" + str(elite_value))
-            print("個体番号：" + str(elite_index))
-            print("個体染色体：" + str(elite_E))
-            print()
-
-
-
         #次の世代の遺伝子配列を生成
         nextE = [[0] * ITEM_COUNT for i in range(EACH_LEVEL_COUNT)]
+
 
         #現在の世代の総価値を取得
         total_value = 0
@@ -120,6 +114,13 @@ def main():
                     
                     #次の遺伝子取得に移る
                     break
+        '''
+
+        for j in range(EACH_LEVEL_COUNT):
+            random_select = random.randint(0, EACH_LEVEL_COUNT - 1)
+            for l in range(ITEM_COUNT):
+                nextE[j][l] = E[random_select][l]
+        '''
 
         # 次に、生成した次世代遺伝子を前から二つづつ取得し、交配させる
         # 交配方法：ある2点を取得し、その間の遺伝子を入れ替える
@@ -164,7 +165,7 @@ def main():
                     E[j][k] = nextE[j][k]
 
 
-        if i == 999:
+        if i == GENERATION_TIME - 1:
             print ("【" + str(i) + "世代目 次世代遺伝子】")
 
             for j in range(EACH_LEVEL_COUNT):
