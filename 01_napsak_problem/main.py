@@ -20,10 +20,10 @@ ITEM_COUNT = 10
 EACH_LEVEL_COUNT = 100
 
 # 次世代生成数
-GENERATION_TIME = 9000
+GENERATION_TIME = 500
 
 # 交配レート
-CROSS_RATING = 98
+CROSS_RATING = 95
 MUTANT_RATING = 5
 
 #value, weight
@@ -31,7 +31,7 @@ item = []
 
 def init_each_param_from_text():
     dirname = os.path.dirname(__file__)
-    f = open(os.path.join(dirname, "question_2.txt"), 'r', encoding='UTF-8')
+    f = open(os.path.join(dirname, "question.txt"), 'r', encoding='UTF-8')
     data_list = f.readlines()
 
     global ITEM_COUNT
@@ -169,7 +169,7 @@ def main():
             print ("【" + str(i) + "世代目 次世代遺伝子】")
 
             for j in range(EACH_LEVEL_COUNT):
-                print(str(E[j]) + ", 重量:" + str(judge_each_napsak_amount(E[j])) + ", 価値:" + str(judge_each_napsak_value(E[j])))
+                print(str(judge_each_napsak_value(E[j])))
         else:
             print(i)
 
